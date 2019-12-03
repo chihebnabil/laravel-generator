@@ -40,7 +40,7 @@ class GenerateCommand extends Command
      */
     public function handle()
     {
-        $type  = $this->choice('What do you want to  generate?', ['Model', 'Controller','Crud'], null);
+        $type  = $this->choice('What do you want to  generate?', ['Model', 'Controller','DataTableController','Crud'], null);
         $class = $this->ask("What it's model class name ? Ex : Post");
         switch ($type){
             case 'Model':
@@ -49,9 +49,12 @@ class GenerateCommand extends Command
             case 'Controller':
                 $this->makeController($class);
                 break;
+            case 'DataTableController':
+                $this->makeDataTableController($class);
+                break;
             case 'Crud':
                 $this->makeModel($class);
-                $this->makeAdminController($class);
+                $this->makeDataTableController($class);
                 $this->makeTableView($class);
                 break;
         }
@@ -66,9 +69,11 @@ class GenerateCommand extends Command
                 break;
             case 'Controller':
                 return file_get_contents(__DIR__ . '/../stubs/controller.stub');
+            case 'DataTableController':
+                return file_get_contents(__DIR__ . '/../stubs/controller_datatable.stub');
                 break;
             case 'ViewTable':
-                return file_get_contents(resource_path('stubs/vue/table.stub'));
+                return file_get_contents(__DIR__ .'/../stubs/vue/table.stub');
                 break;
         }
     }
@@ -94,22 +99,24 @@ class GenerateCommand extends Command
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
     }
-   private function makeAdminController($class)
+   private function makeDataTableController($class)
     {
+        $this->line('Your are required to install yajra datatable package : yajra/laravel-datatables');
+
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}'],
                 [$class,Str::lower($class),Str::lower(Str::plural($class))],
-                $this->getStub('Controller')
+                $this->getStub('DataTableController')
             );
-        file_put_contents(app_path("/Http/Controllers/Admin/{$class}Controller.php"), $modelTemplate);
+        file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
     }
     private function makeTableView($class)
     {
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}'],
-                [$class,strtolower($class),strtolower(str_plural($class))],
+                [$class,Str::lower($class),Str::lower(Str::plural($class))],
                 $this->getStub('ViewTable')
             );
         file_put_contents(app_path("/{$class}Table.vue"), $modelTemplate);
