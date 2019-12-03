@@ -1,7 +1,6 @@
 {
-    "name": "chiheb/generator",
+    "name": "chiheb/laravel-generator",
     "description": "Generate your laravel controllers , views , models ..",
-    "type": "package",
     "license": "MIT",
     "authors": [
         {
