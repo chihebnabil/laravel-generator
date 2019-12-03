@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Request;
+use App\{{class}};
+
+class {{class}}Controller extends Controller
+{
+        public function __construct( {{class}} $model)
+        {
+            $this->model = $model;
+        }
+
+        public function index(Request $request)
+        {
+            return datatables()->eloquent($this->model->query())->toJson();
+        }
+
+
+        public function show(Request  $request, {{class}} ${{lowerCaseModel}} )
+        {
+            return new Resource(${{lowerCaseModel}});
+        }
+
+
+        public function store(Requests $request)
+        {
+            $model = $this->model->create($request->input());
+            return new Resource($model);
+        }
+
+
+        public function update(Requests $request,{{class}} ${{lowerCaseModel}} )
+        {
+            ${{lowerCaseModel}}->update($request->input());
+            return new Resource(${{lowerCaseModel}});
+        }
+
+
+        public function destroy(Requests $request, {{class}} ${{lowerCaseModel}} )
+        {
+            ${{lowerCaseModel}}->delete();
+
+            return new Resource( ${{lowerCaseModel}} );
+        }
+
+}

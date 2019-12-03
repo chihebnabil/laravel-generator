@@ -1,0 +1,19 @@
+{
+    "name": "chiheb/generator",
+    "description": "Generate your laravel controllers , views , models ..",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chiheb Nabil",
+            "email": "chiheb.design@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Chiheb\\Generator\\": "src/"
+        }
+    }
+}
