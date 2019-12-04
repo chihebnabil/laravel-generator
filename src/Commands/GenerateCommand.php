@@ -80,6 +80,11 @@ class GenerateCommand extends Command
 
             );
         file_put_contents(app_path("/{$class}.php"), $modelTemplate);
+        $this->line('Model File Created  : '.$class.'.php' );
+        if($this->confirm('Do you wish to generate migrations for this model ? (yes|no)[no]'))
+        {
+            $this->makeMigration($class);
+        }
     }
 
     private function makeController($class)
@@ -91,7 +96,9 @@ class GenerateCommand extends Command
                 Helpers\Stub::get('Controller')
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
-        Helpers\Route::addWebRoute($class);
+        if($this->confirm('Do you wish to generate a web route  for this controller ? (yes|no)[no]')) {
+            Helpers\Route::addWebRoute($class);
+        }
     }
    private function makeDataTableController($class)
     {
@@ -104,6 +111,9 @@ class GenerateCommand extends Command
                 Helpers\Stub::get('DataTableController')
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
+        if($this->confirm('Do you wish to generate a web route  for this controller ? (yes|no)[no]')) {
+            Helpers\Route::addWebRoute($class);
+        }
     }
     private function makeApiController($class)
     {
@@ -115,8 +125,10 @@ class GenerateCommand extends Command
             );
         if (!file_exists(app_path("/Http/Controllers/Api") )) {
             mkdir(app_path("/Http/Controllers/Api"), 0644, true);
-            file_put_contents(app_path("/Http/Controllers/Api/{$class}Controller.php"), $modelTemplate);
-
+        }
+        file_put_contents(app_path("/Http/Controllers/Api/{$class}Controller.php"), $modelTemplate);
+        if($this->confirm('Do you wish to generate an api route  for this controller ? (yes|no)[no]')) {
+            Helpers\Route::addApiRoute($class);
         }
     }
 

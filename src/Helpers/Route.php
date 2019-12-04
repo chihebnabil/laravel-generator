@@ -28,6 +28,6 @@ class Route
 
     static function addApiRoute($class){
         $newRoutesAsString = self::routesAsString($class,'api');
-        file_put_contents( app_path('routes/api.php'), $newRoutesAsString, FILE_APPEND );
+        file_put_contents( base_path('routes/api.php'), $newRoutesAsString, FILE_APPEND );
     }
 }
