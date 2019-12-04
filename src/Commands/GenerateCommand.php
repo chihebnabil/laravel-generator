@@ -74,7 +74,8 @@ class GenerateCommand extends Command
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{namespace}}','{{fields}}','{{table}}'],
-                [$class,"App\\".$class,$fields,Str::lower(Str::plural($class))],
+                [$class,"App\\".$class,Helpers\Functions::parseCommaSeparatedStr($fields),
+                    Str::lower(Str::plural($class))],
                 Helpers\Stub::get('Model')
 
             );

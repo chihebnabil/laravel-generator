@@ -17,5 +17,5 @@ class {{class}} extends Model
 
     protected $table = '{{table}}';
 
-    protected $fillable = [ '{{fields}}' ];
+    protected $fillable = [ {{fields}} ];
 }

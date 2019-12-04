@@ -14,7 +14,7 @@ class SchemaParser
 
         foreach ($fieldsAsArray as $k => $v ){
             $t = explode(':', $v);
-            $schema .=  '$'.'table'.'->'.$t[1].'("'.$t[0].'") ;'. PHP_EOL;
+            $schema .=  '$'.'table'.'->'.trim($t[1]).'("'.trim($t[0]).'") ;'. PHP_EOL;
         }
        return $schema;
 
