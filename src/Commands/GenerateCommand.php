@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\VarDumper\Cloner\Stub;
 
+use Chiheb\Generator\Helpers;
 
 class GenerateCommand extends Command
 {
@@ -40,7 +41,7 @@ class GenerateCommand extends Command
      */
     public function handle()
     {
-        $type  = $this->choice('What do you want to  generate?', ['Model', 'Controller','DataTableController','Crud'], null);
+        $type  = $this->choice('What do you want to  generate?', ['Model', 'Controller','DataTableController','ApiController','Migration','Crud'], null);
         $class = $this->ask("What it's model class name ? Ex : Post");
         switch ($type){
             case 'Model':
@@ -51,7 +52,13 @@ class GenerateCommand extends Command
                 break;
             case 'DataTableController':
                 $this->makeDataTableController($class);
+            case 'ApiController':
+                $this->makeApiController($class);
                 break;
+            case 'Migration':
+                $this->makeMigration($class);
+                break;
+
             case 'Crud':
                 $this->makeModel($class);
                 $this->makeDataTableController($class);
@@ -61,30 +68,15 @@ class GenerateCommand extends Command
     }
 
 
-    protected function getStub($type)
-    {
-        switch ($type){
-            case 'Model':
-                return file_get_contents(__DIR__ . '/../stubs/model.stub');
-                break;
-            case 'Controller':
-                return file_get_contents(__DIR__ . '/../stubs/controller.stub');
-            case 'DataTableController':
-                return file_get_contents(__DIR__ . '/../stubs/controller_datatable.stub');
-                break;
-            case 'ViewTable':
-                return file_get_contents(__DIR__ .'/../stubs/vue/table.stub');
-                break;
-        }
-    }
     private function makeModel($class)
     {
         $fields = $this->ask("Enter you comma separated fields Ex : name , category_id ");
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{namespace}}','{{fields}}','{{table}}'],
-                [$class,"App\\".$class,$fields,strtolower(Str::plural($class))],
-                $this->getStub('Model')
+                [$class,"App\\".$class,$fields,Str::lower(Str::plural($class))],
+                Stub::get('Model')
+
             );
         file_put_contents(app_path("/{$class}.php"), $modelTemplate);
     }
@@ -95,7 +87,7 @@ class GenerateCommand extends Command
             str_replace(
                 ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}'],
                 [$class,Str::lower($class),Str::lower(Str::plural($class))],
-                $this->getStub('Controller')
+                Helpers\Stub::get('Controller')
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
     }
@@ -107,18 +99,35 @@ class GenerateCommand extends Command
             str_replace(
                 ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}'],
                 [$class,Str::lower($class),Str::lower(Str::plural($class))],
-                $this->getStub('DataTableController')
+                Helpers\Stub::get('DataTableController')
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
     }
-    private function makeTableView($class)
+    private function makeApiController($class)
     {
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}'],
                 [$class,Str::lower($class),Str::lower(Str::plural($class))],
-                $this->getStub('ViewTable')
+                Helpers\Stub::get('ApiController')
             );
-        file_put_contents(app_path("/{$class}Table.vue"), $modelTemplate);
+        if (!file_exists(app_path("/Http/Controllers/Api") )) {
+            mkdir(app_path("/Http/Controllers/Api"), 0777, true);
+            file_put_contents(app_path("/Http/Controllers/Api/{$class}Controller.php"), $modelTemplate);
+
+        }
+    }
+
+    private function makeMigration($class)
+    {
+        $fields = $this->ask("Enter you comma separated fields:type Ex : name:string ");
+        $fieldsAsArray  = explode(',',$fields);
+        $modelTemplate =
+            str_replace(
+                ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}','{{fields}}'],
+                [$class,Str::lower($class),Str::lower(Str::plural($class)),$fieldsAsArray],
+                Helpers\Stub::get('Migration')
+            );
+        file_put_contents(database_path("/migrations/create_{$class}_table.php"), $modelTemplate);
     }
 }

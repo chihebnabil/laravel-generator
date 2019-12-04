@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\{{class}};
+use Illuminate\Http\Request;
+
+/**
+ * Class {{class}}
+ * @property App\{{class}} model
+ */
+class {{class}}Controller extends Controller
+{
+    /**
+     * {{class}} constructor.
+     * @param App\$class$ $class
+     */
+     public function __construct({{class}} $model)
+        {
+            $this->model = $model;
+        }
+
+        /**
+         * @SWG\Get(
+         *     path="/{{lowerCasePlural}}",
+         *     tags={"$MODULE$ $MODEL_PLURAL_NAME$"},
+         *     summary="Get {{lowerCasePlural}} List",
+         *     @SWG\Response(
+         *          response=200,
+         *          description="ORACLE Fluent Query Response.",
+         *     ),
+         * ),
+         * @param Request $request
+         * @return \Illuminate\Http\JsonResponse
+         */
+        public function index(Request $request)
+        {
+            return  response()->json($this->model->all(),200);
+        }
+
+        /**
+         * @SWG\Get(
+         *     path="/$MODEL_PLURAL_LOWER_NAME$/{$MODEL_LOWER_NAME$}",
+         *     tags={"$MODULE$ $MODEL_PLURAL_NAME$"},
+         *     summary="Show {{lowerCaseModel}}",
+         *     @SWG\Parameter(
+         *          name="{{lowerCaseModel}}",
+         *          in="path",
+         *          description="id",
+         *          required=true,
+         *          type="string"
+         *     ),
+         *     @SWG\Parameter(
+         *          name="{{lowerCaseModel}}",
+         *          in="body",
+         *          required=true,
+         *          type="string",
+         *
+         *     ),
+         *     @SWG\Response(
+         *          response=200
+         *
+         *     ),
+         * ),
+         * @param  Request $request
+         * @param  App\{{$class}} {{$lowerCaseModel}}
+         * @return \Illuminate\Http\JsonResponse
+         */
+        public function show(Request  $request, {{class}} ${{lowerCaseModel}})
+        {
+            return  response()->json(${{lowerCaseModel}});
+        }
+
+}
