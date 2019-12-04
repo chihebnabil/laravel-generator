@@ -63,7 +63,6 @@ class GenerateCommand extends Command
             case 'Crud':
                 $this->makeModel($class);
                 $this->makeDataTableController($class);
-                $this->makeTableView($class);
                 break;
         }
     }
