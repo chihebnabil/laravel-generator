@@ -2,6 +2,7 @@
 
 namespace Chiheb\Generator\Commands;
 
+use Chiheb\Generator\Helpers\SchemaParser;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\VarDumper\Cloner\Stub;
@@ -22,7 +23,7 @@ class GenerateCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate Laravel Models, Controllers ...';
 
     /**
      * Create a new command instance.
@@ -112,7 +113,7 @@ class GenerateCommand extends Command
                 Helpers\Stub::get('ApiController')
             );
         if (!file_exists(app_path("/Http/Controllers/Api") )) {
-            mkdir(app_path("/Http/Controllers/Api"), 0777, true);
+            mkdir(app_path("/Http/Controllers/Api"), 0644, true);
             file_put_contents(app_path("/Http/Controllers/Api/{$class}Controller.php"), $modelTemplate);
 
         }
@@ -121,13 +122,20 @@ class GenerateCommand extends Command
     private function makeMigration($class)
     {
         $fields = $this->ask("Enter you comma separated fields:type Ex : name:string ");
-        $fieldsAsArray  = explode(',',$fields);
+        $fileName = Helpers\Migration::getFilename($class);
+        $tableName = Helpers\Migration::getName($class);
         $modelTemplate =
             str_replace(
-                ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}','{{fields}}'],
-                [$class,Str::lower($class),Str::lower(Str::plural($class)),$fieldsAsArray],
+                ['{{class}}','{{lowerCaseModel}}','{{lowerCasePlural}}','{{fields}}','{{tableName}}'],
+                [$class,Str::lower($class),
+                    Str::lower(Str::plural($class)),
+                    SchemaParser::parseFields($fields),
+                    $tableName
+                ],
                 Helpers\Stub::get('Migration')
             );
-        file_put_contents(database_path("/migrations/create_{$class}_table.php"), $modelTemplate);
+        file_put_contents(database_path("/migrations/".$fileName), $modelTemplate);
+        $this->line('Migration File Created  : '.$fileName );
+
     }
 }
