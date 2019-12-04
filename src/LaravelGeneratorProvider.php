@@ -2,6 +2,7 @@
 
 namespace Chiheb\Generator;
 
+use Chiheb\Generator\Commands\BuildCommand;
 use Illuminate\Support\ServiceProvider;
 use Chiheb\Generator\Commands\GenerateCommand;
 
@@ -15,6 +16,7 @@ class LaravelGeneratorProvider extends ServiceProvider
         # code...
         $this->commands([
             GenerateCommand::class,
+            BuildCommand::class
         ]);
     }
 

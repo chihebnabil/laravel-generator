@@ -9,6 +9,12 @@ https://www.youtube.com/watch?v=oaAksK0UYvk
 ### Installation
 `composer require chiheb/laravel-generator`
 
+#### Provider
+
+Add this provider to providers array in `config/app.php`
+
+`Chiheb\Generator\LaravelGeneratorProvider::class`
+
 ### Usage
 `php artisan generator:make`
 
