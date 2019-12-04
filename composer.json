@@ -1,6 +1,6 @@
 {
     "name": "chiheb/laravel-generator",
-    "description": "Generate your laravel controllers , views , models ..",
+    "description": "Laravel Rapid Code Generation : controllers ,  models ..",
     "license": "MIT",
     "authors": [
         {
