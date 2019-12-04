@@ -76,7 +76,7 @@ class GenerateCommand extends Command
             str_replace(
                 ['{{class}}','{{namespace}}','{{fields}}','{{table}}'],
                 [$class,"App\\".$class,$fields,Str::lower(Str::plural($class))],
-                Stub::get('Model')
+                Helpers\Stub::get('Model')
 
             );
         file_put_contents(app_path("/{$class}.php"), $modelTemplate);
@@ -91,6 +91,7 @@ class GenerateCommand extends Command
                 Helpers\Stub::get('Controller')
             );
         file_put_contents(app_path("/Http/Controllers/{$class}Controller.php"), $modelTemplate);
+        Helpers\Route::addWebRoute($class);
     }
    private function makeDataTableController($class)
     {
