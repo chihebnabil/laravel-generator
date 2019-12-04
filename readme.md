@@ -1,6 +1,6 @@
 ## Laravel Rapid Code Generation Package
 
-![Generator](terminal.png)
+![Generator](terminal.PNG)
 
 ### Demo Video
 
