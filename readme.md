@@ -1,6 +1,12 @@
 ## Laravel Rapid Code Generation Package
 
-### Install
+![Drag Racing](Terminal.png)
+
+### Demo Video
+
+https://www.youtube.com/watch?v=oaAksK0UYvk
+
+### Installation
 `composer require chiheb/laravel-generator`
 
 ### Usage
