@@ -1,6 +1,6 @@
 ## Laravel Rapid Code Generation Package
 
-![Drag Racing](Terminal.png)
+![Generator](terminal.png)
 
 ### Demo Video
 
