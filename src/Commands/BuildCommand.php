@@ -11,7 +11,7 @@ use Chiheb\Generator\Helpers;
 
 class BuildCommand extends Command
 {
-    protected $signature = 'generator:make';
+    protected $signature = 'generator:build';
 
 
     protected $description = 'Generate Laravel Module from a YAML file';
@@ -28,6 +28,9 @@ class BuildCommand extends Command
 
     public function handle()
     {
+
+       $file =  file_get_contents(base_path('./'.'schema.yaml'));
+       $path = base_path('./'.'schema.yaml');
 
     }
 }
