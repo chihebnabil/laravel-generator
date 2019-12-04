@@ -14,7 +14,7 @@ class Create{{tableName}}Table extends Migration
     public
     function up()
     {
-        Schema::create('{{tableName}}', function (Blueprint $table) {
+        Schema::create('{{lowerCasePlural}}', function (Blueprint $table) {
             $table->increments('id');
 
             {{fields}}
@@ -31,7 +31,7 @@ class Create{{tableName}}Table extends Migration
     public
     function down()
     {
-        Schema::dropIfExists('{{tableName}}');
+        Schema::dropIfExists('{{lowerCasePlural}}');
     }
 }
 
