@@ -4,8 +4,17 @@
 namespace Chiheb\Generator\Helpers;
 
 
-class Stub
-{
+use Illuminate\Support\Str;
+use Illuminate\Console\Command;
+
+class Stub  {
+
+
+
+    public function __construct()
+    {
+
+    }
 
     public static function get($type)
     {
@@ -28,4 +37,7 @@ class Stub
                 break;
         }
     }
+
+
+
 }

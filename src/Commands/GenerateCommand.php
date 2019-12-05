@@ -16,7 +16,7 @@ class GenerateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'generator:make';
+    protected $signature = 'generator:make {type?}  {class?} {fields?}';
 
     /**
      * The console command description.
@@ -42,8 +42,20 @@ class GenerateCommand extends Command
      */
     public function handle()
     {
-        $type  = $this->choice('What do you want to  generate?', ['Model', 'Controller','DataTableController','ApiController','Migration','Crud'], null);
-        $class = $this->ask("What it's model class name ? Ex : Post");
+        $typeArg = $this->argument("type");
+        $classArg = $this->argument("class");
+        $fieldsArg = $this->argument("fields");
+
+        if(empty($typeArg)){
+            $type  = $this->choice('What do you want to  generate?', [
+                'Model', 'Controller','DataTableController','ApiController','Migration','Crud'], null);
+                $class = $this->ask("What it's model class name ? Ex : Post");
+
+        }else{
+            $type  = $typeArg;
+            $class = $classArg;
+
+        }
         switch ($type){
             case 'Model':
                 $this->makeModel($class);
