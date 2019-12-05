@@ -42,9 +42,19 @@ class BuildCommand extends Command
             if(array_key_exists("Models",$module)){
                 foreach ($module['Models'] as $m => $model){
                     $this->info("Generating ".$m." Entity");
+                    $fields = "";
+                    if(array_key_exists("fields",$model)){
+                        foreach ($model['fields'] as $f => $t){
+                            $fields .= $f .',';
+                        }
+                        $fields = rtrim($fields,",");
+                    }
+
+
                     $this->call("generator:make",[
                         'type' => "Model",
-                        'class' => $m
+                        'class' => $m,
+                        'fields' => $fields
                     ]);
                 }
 
@@ -52,11 +62,11 @@ class BuildCommand extends Command
 
 
             if(array_key_exists("Controllers",$module)){
-                foreach ($module['Controllers'] as $c => $controller){
-                    $this->info("Generating ".$m." Entity");
+                foreach ($module['Controllers'] as  $controller){
+                    $this->info("Generating ".$m." Controller");
                     $this->call("generator:make",[
-                        'type' => "Controller",
-                        'class' => $c
+                        'type' => $controller['type'],
+                        'class' => $controller['name'],
                     ]);
                 }
 

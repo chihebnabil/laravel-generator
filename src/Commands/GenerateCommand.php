@@ -44,7 +44,7 @@ class GenerateCommand extends Command
     {
         $typeArg = $this->argument("type");
         $classArg = $this->argument("class");
-        $fieldsArg = $this->argument("fields");
+
 
         if(empty($typeArg)){
             $type  = $this->choice('What do you want to  generate?', [
@@ -82,7 +82,13 @@ class GenerateCommand extends Command
 
     private function makeModel($class)
     {
-        $fields = $this->ask("Enter you comma separated fields Ex : name , category_id ");
+        $fieldsArg = $this->argument("fields");
+        if(empty($fieldsArg)){
+            $fields = $this->ask("Enter you comma separated fields Ex : name , category_id ");
+        }else{
+            $fields = $fieldsArg;
+        }
+
         $modelTemplate =
             str_replace(
                 ['{{class}}','{{namespace}}','{{fields}}','{{table}}'],
