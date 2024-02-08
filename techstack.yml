@@ -1,0 +1,70 @@
+repo_name: chihebnabil/laravel-generator
+report_id: 00b861e44faf1a4bfd98410f017cb1a4
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-08T19:19:25+00:00'
+requested_by: chihebnabil
+provider: github
+branch: master
+detected_tools_count: 5
+tools:
+- name: PHP
+  description: A popular general-purpose scripting language that is especially suited
+    to web development
+  website_url: http://www.php.net/
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/991/hwUcGZ41_400x400.jpg
+  detection_source_url: https://github.com/chihebnabil/laravel-generator
+  detection_source: Repo Metadata
+- name: Symfony
+  description: A PHP full-stack web framework
+  website_url: http://symfony.com/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/1197/logosf_positif_03_icon.png
+  detection_source_url: https://github.com/chihebnabil/laravel-generator/blob/master/composer.json
+  detection_source: composer.json
+  last_updated_by: Chiheb Nabil
+  last_updated_on: 2019-12-05 22:28:40.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/chihebnabil/laravel-generator
+  detection_source: Repo Metadata
+- name: nwidart/laravel-modules
+  description: Laravel Module management
+  package_url: https://packagist.org/nwidart/laravel-modules
+  version: '3.0'
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/packagist/image.png
+  detection_source_url: https://github.com/chihebnabil/laravel-generator/blob/master/composer.json
+  detection_source: composer.json
+  last_updated_by: Chiheb Nabil
+  last_updated_on: 2019-12-05 22:34:04.000000000 Z
+- name: symfony/yaml
+  description: Loads and dumps YAML files
+  package_url: https://packagist.org/symfony/yaml
+  version: '3.4'
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/packagist/image.png
+  detection_source_url: https://github.com/chihebnabil/laravel-generator/blob/master/composer.json
+  detection_source: composer.json
+  last_updated_by: Chiheb Nabil
+  last_updated_on: 2019-12-05 22:28:40.000000000 Z
